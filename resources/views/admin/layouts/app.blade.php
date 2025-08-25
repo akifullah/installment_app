@@ -4,14 +4,24 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Leasing Installment Management</title>
+    <title>@yield('title', 'Leasing Installment Management')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-    <meta name="author" content="Zoyothemes" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="token" content="{{csrf_token()}}" >
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Datatables css -->
+    <link href="assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 
     <!-- App css -->
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
@@ -241,21 +251,10 @@
                         </li>
 
                         <li>
-                            <a href="#sidebarUsers" data-bs-toggle="collapse">
+                            <a href="{{route("users.index")}}">
                                 <i data-feather="users"></i>
                                 <span> Users </span>
-                                <span class="menu-arrow"></span>
                             </a>
-                            <div class="collapse" id="sidebarUsers">
-                                <ul class="nav-second-level">
-                                    <li>
-                                        <a class='tp-link' href='auth-login.html'>User List</a>
-                                    </li>
-                                    <li>
-                                        <a class='tp-link' href='auth-register.html'>Add User</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
 
 
@@ -286,10 +285,8 @@
                     <div class="row">
                         <div class="col fs-13 text-muted text-center">
                             &copy;
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script> - Made with <span class="mdi mdi-heart text-danger"></span> by <a
-                                href="#!" class="text-reset fw-semibold">Zoyothemes</a>
+                            {{ date('Y') }} - Develop by <a
+                                href="#!" class="text-reset fw-semibold">.....</a>
                         </div>
                     </div>
                 </div>
@@ -313,17 +310,13 @@
     <script src="{{ asset('assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 
-    <!-- Apexcharts JS -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+    
 
-    <!-- for basic area chart -->
-    {{-- <script src="../../../apexcharts.com/samples/assets/stock-prices.js"></script> --}}
-
-    <!-- Widgets Init Js -->
-    <script src="{{ asset('assets/js/pages/crm-dashboard.init.js') }}"></script>
-
+    @yield("script")
+    
     <!-- App js-->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
 
 </body>
 

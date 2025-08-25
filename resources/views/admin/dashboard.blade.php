@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 
+
 @section('content')
     <!-- Start Content-->
     <div class="container-fluid">
@@ -896,4 +897,15 @@
 
         </div>
     </div> <!-- container-fluid -->
+@endsection
+
+@section('script')
+    <!-- Apexcharts JS -->
+    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+    <!-- for basic area chart -->
+    {{-- <script src="../../../apexcharts.com/samples/assets/stock-prices.js"></script> --}}
+
+    <!-- Widgets Init Js -->
+    <script src="{{ asset('assets/js/pages/crm-dashboard.init.js') }}"></script>
 @endsection
