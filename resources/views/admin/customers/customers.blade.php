@@ -1,9 +1,6 @@
-@php
-    use SweetAlert2\Laravel\Swal;
-@endphp
 @extends('admin.layouts.app')
 
-@section('title', 'All Users - ' . config('app.name'))
+@section('title', 'All Customers - ' . config('app.name'))
 
 @section('content')
 
@@ -11,12 +8,12 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="addUserModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="modal-title" class="modal-title fs-5">Add Users</h1>
-                    <button onclick="showAddUserModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    <h1 id="modal-title" class="modal-title fs-5">Add Customers</h1>
+                    <button onclick="showaddCustomerModal()" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -29,24 +26,31 @@
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="userEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="userEmail" name="email" required>
+                                <label for="cnic" class="form-label">CNIC</label>
+                                <input type="number" class="form-control" id="cnic" name="cnic" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="number" class="form-control" id="phone" name="phone" required>
+                                <input type="text" class="form-control" id="phone" name="phone" required>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="userRole" class="form-label">Role</label>
-                                <select class="form-select" id="userRole" name="role" required>
-                                    <option value="salesman" selected>Salesman</option>
-                                    <option value="admin">Admin</option>
-                                </select>
+                                <label for="address" class="form-label">Address</label>
+                                <input type="address" class="form-control" id="address" name="address">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="userPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="userPassword" name="password" required>
+                                <label for="guarantor_name" class="form-label">Guarantor Name</label>
+                                <input type="text" class="form-control" id="guarantor_name" name="guarantor_name">
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="guarantor_phone" class="form-label">Guarantor Phone</label>
+                                <input type="text" class="form-control" id="guarantor_phone" name="guarantor_phone">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="guarantor_cnic" class="form-label">Guarantor CNIC</label>
+                                <input type="number" class="form-control" id="guarantor_cnic" name="guarantor_cnic">
+                            </div>
+
+
                             <div class="mb-3 col-md-6 align-self-end">
                                 <button type="submit" id="submitBtn" class="btn btn-primary w-100">Add User</button>
                             </div>
@@ -63,7 +67,7 @@
     <div class="container-fluid">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Users</h4>
+                <h4 class="fs-18 fw-semibold m-0">Customers</h4>
             </div>
         </div>
 
@@ -73,9 +77,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">All Users</h5>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Add
-                            User</button>
+                        <h5 class="card-title mb-0">All Customers</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add
+                            Customer</button>
 
                     </div><!-- end card header -->
 
@@ -85,27 +89,31 @@
                                 <tr>
                                     <th>S.No:</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>CNIC</th>
                                     <th>Phone</th>
-                                    <th>Role</th>
+                                    <th>Guarantor Name</th>
+                                    <th>Guarantor Phone</th>
+                                    <th>Guarantor CNIC</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($users->isNotEmpty())
-                                    @foreach ($users as $key => $user)
+                                @if ($customers->isNotEmpty())
+                                    @foreach ($customers as $key => $customer)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $user?->name }}</td>
-                                            <td>{{ $user?->email }}</td>
-                                            <td>{{ $user?->phone }}</td>
-                                            <td>{{ $user?->role }}</td>
+                                            <td>{{ $customer?->name }}</td>
+                                            <td>{{ $customer?->cnic }}</td>
+                                            <td>{{ $customer?->phone }}</td>
+                                            <td>{{ $customer?->guarantor_name }}</td>
+                                            <td>{{ $customer?->guarantor_phone }}</td>
+                                            <td>{{ $customer?->guarantor_cnic }}</td>
                                             <td>
-                                                <button onclick="handleEdit({{ $user->id }})"
+                                                <button onclick="handleEdit({{ $customer->id }})"
                                                     class="btn btn-sm btn-info">
                                                     <i class="mdi mdi-pencil-outline"></i>
                                                 </button>
-                                                <button onclick="handleDelete({{ $user->id }})"
+                                                <button onclick="handleDelete({{ $customer->id }})"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="mdi mdi-trash-can-outline"></i>
                                                 </button>
@@ -159,13 +167,13 @@
     <script src="assets/js/pages/datatable.init.js"></script>
 
     <script>
-        function showAddUserModal() {
-            var $modal = $("#addUserModal");
+        function showaddCustomerModal() {
+            var $modal = $("#addCustomerModal");
             var form = document.getElementById('addUserForm');
             form.reset();
             $modal.find('#userPassword').prop("required", true);
-            $("#modal-title").text("Add User");
-            $("#submitBtn").text("Add User");
+            $("#modal-title").text("Add Customer");
+            $("#submitBtn").text("Add Customer");
 
 
 
@@ -175,13 +183,13 @@
         function addUser(e) {
             e.preventDefault(); // stops form from submitting
 
-            var $modal = $("#addUserModal");
+            var $modal = $("#addCustomerModal");
             var form = document.getElementById('addUserForm');
             var formData = new FormData(form);
-            
+
 
             $.ajax({
-                url: "{{ route('users.store') }}",
+                url: "{{ route('customers.store') }}",
                 type: "POST",
                 data: formData,
                 headers: {
@@ -201,8 +209,9 @@
                     //     ')" class="btn btn-sm btn-info">Edit</button>'));
                     // tbody.prepend(tr);
                     Swal.fire({
-                        title: $("#id").val() ? "User Updated" : 'User Added!',
-                        text: $("#id").val() ? 'The user has been updated successfully.' : 'The user has been created successfully.',
+                        title: $("#id").val() ? "Customers Updated" : 'Customers Added!',
+                        text: $("#id").val() ? 'The Customer has been updated successfully.' :
+                            'The Customer has been created successfully.',
                         icon: 'success',
                         confirmButtonText: 'Close',
                         didClose: () => {
@@ -224,22 +233,23 @@
 
         // UPDATE USERS
         function handleEdit(id) {
-            $('#addUserModal').modal('show');
-            var $modal = $("#addUserModal");
+            $('#addCustomerModal').modal('show');
+            var $modal = $("#addCustomerModal");
             $modal.find("#id").val(id);
-            $("#modal-title").text("Edit User");
-            $("#submitBtn").text("Update User");
+            $("#modal-title").text("Edit Customer");
+            $("#submitBtn").text("Update Customer");
             $.ajax({
-                url: "/users/" + id,
+                url: "/customers/" + id,
                 success: function(response) {
                     if (response.success) {
-                        let user = response?.data;
-                        $modal.find('#name').val(user?.name);
-                        $modal.find('#userEmail').val(user?.email);
-                        $modal.find('#userRole').val(user?.role);
-                        $modal.find('#phone').val(user?.phone);
-                        $modal.find('#userPassword').val('');
-                        $modal.find('#userPassword').prop("required", false);
+                        let customer = response?.data;
+                        $modal.find('#name').val(customer?.name);
+                        $modal.find('#phone').val(customer?.phone);
+                        $modal.find('#cnic').val(customer?.cnic);
+                        $modal.find('#address').val(customer?.address);
+                        $modal.find('#guarantor_name').val(customer?.guarantor_name);
+                        $modal.find('#guarantor_phone').val(customer?.guarantor_phone);
+                        $modal.find('#guarantor_cnic').val(customer?.guarantor_cnic);
                     }
                 },
             })
@@ -250,14 +260,14 @@
             let confirmed = confirm("Are you sure! You want to delete?");
             if (confirmed) {
                 $.ajax({
-                    url: "/users/" + id,
+                    url: "/customers/" + id,
                     type: "DELETE",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
                     },
                     success: (res) => {
                         if (res.success) {
-                            alert("User Deleted.");
+                            alert("Customer Deleted.");
                             location.reload();
 
                         }

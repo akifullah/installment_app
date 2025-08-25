@@ -165,7 +165,7 @@
                             <div class="collapse" id="sidebarCustomers">
                                 <ul class="nav-second-level">
                                     <li>
-                                        <a class='tp-link' href='auth-login.html'>Customer List</a>
+                                        <a class='tp-link' href='{{route("customers.index")}}'>Customer List</a>
                                     </li>
                                     <li>
                                         <a class='tp-link' href='auth-register.html'>Add Customer</a>
@@ -310,7 +310,7 @@
     <script src="{{ asset('assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield("script")
     
